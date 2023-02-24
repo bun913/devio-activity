@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs'
 import * as github from '@actions/github'
 
 export const updateContent = async (params: {ghToken: string, filePath: string}): Promise<void> => {
@@ -7,7 +8,7 @@ export const updateContent = async (params: {ghToken: string, filePath: string})
       owner: github.context.repo.owner,
       path: params.filePath,
       message: `update ${params.filePath}`,
-      content: Buffer.from(params.filePath).toString('base64'),
+      content: readFileSync(params.filePath, { encoding: "base64" }),
       committer: {
         name: 'github-actions[bot]',
         email: '41898282+github-actions[bot]@users.noreply.github.com'
