@@ -10,11 +10,14 @@ inputs:
     default: ${{ github.token }}
     description: "GitHub Token"
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  env:
-    INPUT_AUTHOR_ID: ${{ inputs.AUTHOR_ID }}
-    INPUT_GH_TOKEN: ${{ inputs.GH_TOKEN }}
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - uses: microsoft/playwright-github-action@v1
+    - run: "node dist/index.js"
+      shell: bash
 
 branding:
   icon: "bar-chart-2"
