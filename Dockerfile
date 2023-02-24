@@ -1,5 +1,12 @@
-FROM node:16-slim
+FROM mcr.microsoft.com/playwright:focal
+RUN apt-get -y update
+RUN apt-get install -y \
+    curl \
+    gnupg
+# 最新のLTSを確認すること
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install npm@latest -g
 COPY ./ ./
-RUN npm i
-RUN npx playwright install chromium
-CMD [ "node", "dist/index.js"]
+ENTRYPOINT [ "node" ]
+CMD [ "dist/index.js"]
