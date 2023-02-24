@@ -21,6 +21,9 @@ runs:
     - run: "npx playwright install --with-deps"
       shell: bash
     - run: "node dist/index.js"
+      env:
+        INPUT_AUTHOR_ID: ${{ inputs.AUTHOR_ID }}
+        INPUT_GH_TOKEN: ${{ inputs.GH_TOKEN }}
       shell: bash
 
 branding:
