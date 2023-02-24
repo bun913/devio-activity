@@ -10,8 +10,12 @@ inputs:
     default: ${{ github.token }}
     description: "GitHub Token"
 runs:
-  using: "node16"
-  main: "dist/index.js"
+  using: "docker"
+  image: "Dockerfile"
+  entrypoint: "node dist/index.js"
+  env:
+    INPUT_AUTHOR_ID: ${{ inputs.AUTHOR_ID }}
+    INPUT_GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
 branding:
   icon: "bar-chart-2"
