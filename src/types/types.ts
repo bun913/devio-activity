@@ -8,7 +8,8 @@ const authoreIDSchema = z
   )
 
 const ActionParamsSchema = z.object({
-  authorID: authoreIDSchema
+  authorID: authoreIDSchema,
+  token: z.string()
 })
 
 export type ActionParams = z.infer<typeof ActionParamsSchema>

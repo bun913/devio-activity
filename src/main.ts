@@ -1,10 +1,14 @@
+import {getActionParams} from './lib/getActionParams'
+import {Activity} from './lib/fetchActivity'
+import {updateContent} from './lib/updateContent'
 import * as core from '@actions/core'
-import { getActionParams } from "./lib/getActionParams"
 
 async function run(): Promise<void> {
   try {
     const actionParams = getActionParams()
-    console.log(actionParams)
+    const activity = new Activity(actionParams.authorID)
+    const filePath = await activity.download()
+    updateContent({ghToken: actionParams.token, filePath})
   } catch (error) {
     if (error instanceof Error) core.setFailed(error)
   }
