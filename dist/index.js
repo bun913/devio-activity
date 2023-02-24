@@ -83,9 +83,11 @@ const core = __importStar(__nccwpck_require__(2186));
 function getActionParams() {
     const authorID = core.getInput('AUTHOR_ID');
     const token = core.getInput('GH_TOKEN');
+    const sha = core.getInput('SHA');
     return {
         authorID,
-        token
+        token,
+        sha
     };
 }
 exports.getActionParams = getActionParams;
@@ -132,6 +134,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.updateContent = void 0;
+const fs_1 = __nccwpck_require__(7147);
 const github = __importStar(__nccwpck_require__(5438));
 const updateContent = (params) => __awaiter(void 0, void 0, void 0, function* () {
     const octokit = github.getOctokit(params.ghToken);
@@ -140,7 +143,8 @@ const updateContent = (params) => __awaiter(void 0, void 0, void 0, function* ()
         owner: github.context.repo.owner,
         path: params.filePath,
         message: `update ${params.filePath}`,
-        content: Buffer.from(params.filePath).toString('base64'),
+        content: (0, fs_1.readFileSync)(params.filePath, { encoding: "base64" }),
+        sha: params.sha,
         committer: {
             name: 'github-actions[bot]',
             email: '41898282+github-actions[bot]@users.noreply.github.com'
@@ -200,7 +204,7 @@ function run() {
             const actionParams = (0, getActionParams_1.getActionParams)();
             const activity = new fetchActivity_1.Activity(actionParams.authorID);
             const filePath = yield activity.download();
-            (0, updateContent_1.updateContent)({ ghToken: actionParams.token, filePath });
+            (0, updateContent_1.updateContent)({ ghToken: actionParams.token, filePath, sha: actionParams.sha });
         }
         catch (error) {
             if (error instanceof Error)

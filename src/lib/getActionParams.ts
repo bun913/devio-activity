@@ -1,12 +1,13 @@
 import * as core from '@actions/core'
 import {ActionParams} from '../types/types'
-import {z} from 'zod'
 
 export function getActionParams():ActionParams {
   const authorID = core.getInput('AUTHOR_ID')
   const token = core.getInput('GH_TOKEN')
+  const sha = core.getInput('SHA')
   return {
     authorID,
-    token
+    token,
+    sha
   }
 }

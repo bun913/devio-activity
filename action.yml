@@ -24,6 +24,7 @@ runs:
       env:
         INPUT_AUTHOR_ID: ${{ inputs.AUTHOR_ID }}
         INPUT_GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        INPUT_SHA: ${{ github.sha }}
       shell: bash
 
 branding:

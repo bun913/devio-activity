@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
 import * as github from '@actions/github'
 
-export const updateContent = async (params: {ghToken: string, filePath: string}): Promise<void> => {
+export const updateContent = async (params: {ghToken: string, filePath: string, sha: string}): Promise<void> => {
     const octokit = github.getOctokit(params.ghToken)
     await octokit.rest.repos.createOrUpdateFileContents({
       repo: github.context.repo.repo,
@@ -9,6 +9,7 @@ export const updateContent = async (params: {ghToken: string, filePath: string})
       path: params.filePath,
       message: `update ${params.filePath}`,
       content: readFileSync(params.filePath, { encoding: "base64" }),
+      sha: params.sha,
       committer: {
         name: 'github-actions[bot]',
         email: '41898282+github-actions[bot]@users.noreply.github.com'
