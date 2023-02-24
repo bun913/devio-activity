@@ -136,18 +136,25 @@ const fs_1 = __nccwpck_require__(7147);
 const github = __importStar(__nccwpck_require__(5438));
 const updateContent = (params) => __awaiter(void 0, void 0, void 0, function* () {
     const octokit = github.getOctokit(params.ghToken);
-    const res = yield octokit.rest.repos.getContent({
-        repo: github.context.repo.repo,
-        owner: github.context.repo.owner,
-        path: params.filePath
-    });
+    let sha;
+    try {
+        const res = yield octokit.rest.repos.getContent({
+            repo: github.context.repo.repo,
+            owner: github.context.repo.owner,
+            path: params.filePath
+        });
+        sha = res.data.sha;
+    }
+    catch (_a) {
+        sha = '';
+    }
     yield octokit.rest.repos.createOrUpdateFileContents({
         repo: github.context.repo.repo,
         owner: github.context.repo.owner,
         path: params.filePath,
         message: `update ${params.filePath}`,
         content: (0, fs_1.readFileSync)(params.filePath, { encoding: "base64" }),
-        sha: res.data.sha,
+        sha,
         committer: {
             name: 'github-actions[bot]',
             email: '41898282+github-actions[bot]@users.noreply.github.com'
