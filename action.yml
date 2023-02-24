@@ -1,13 +1,17 @@
-name: 'Devio Activity Readme'
-description: 'Add DevIO activity to your GitHub profile.'
-author: 'bun913'
+name: "Devio Activity Readme"
+description: "Add DevIO activity to your GitHub profile."
+author: "bun913"
 inputs:
   AUTHOR_ID:
     required: true
-    description: 'developersio author id'
+    description: "developersio author id"
+  GH_TOKEN:
+    required: false
+    default: ${{ github.token }}
+    description: "GitHub Token"
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"
 
 branding:
   icon: "bar-chart-2"
