@@ -9,8 +9,7 @@ const authoreIDSchema = z
 
 const ActionParamsSchema = z.object({
   authorID: authoreIDSchema,
-  token: z.string(),
-  sha: z.string()
+  token: z.string()
 })
 
 export type ActionParams = z.infer<typeof ActionParamsSchema>

@@ -8,7 +8,7 @@ async function run(): Promise<void> {
     const actionParams = getActionParams()
     const activity = new Activity(actionParams.authorID)
     const filePath = await activity.download()
-    updateContent({ghToken: actionParams.token, filePath, sha: actionParams.sha})
+    updateContent({ghToken: actionParams.token, filePath})
   } catch (error) {
     if (error instanceof Error) core.setFailed(error)
   }
