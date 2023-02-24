@@ -12,6 +12,7 @@ export const updateContent = async (params: {ghToken: string, filePath: string})
       })
       sha = res.data.sha
     } catch {
+      // 初回時実行時はファイルが存在しないためハンドリング
       sha = ''
     }
     await octokit.rest.repos.createOrUpdateFileContents({
