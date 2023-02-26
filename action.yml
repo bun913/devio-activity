@@ -12,15 +12,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
-      with:
-        repository: 'bun913/devio-activity'
     - uses: actions/setup-node@v3
       with:
         node-version: 16
     - run: "npx playwright install --with-deps"
       shell: bash
-    - run: "node dist/index.js"
+    - run: "node ${GITHUB_ACTION_PATH}/dist/index.js"
       env:
         INPUT_AUTHOR_ID: ${{ inputs.AUTHOR_ID }}
         INPUT_GH_TOKEN: ${{ inputs.GH_TOKEN }}
