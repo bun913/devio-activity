@@ -44,5 +44,5 @@ jobs:
 README.mdの好きな箇所に以下のようにsvgファイルを埋め込みましょう。
 
 ```md
-![devio](developersio/${AUTHOR_ID}.svg)
+[![devio](developersio/${AUTHOR_ID}.svg)](https://dev.classmethod.jp/author/bun913/)
 ```
