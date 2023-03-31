@@ -15,9 +15,8 @@ runs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-    - run: "npm install"
+    - run: "cd ${GITHUB_ACTION_PATH} &&npm install"
       shell: bash
-      working-directory: ${GITHUB_ACTION_PATH}
     - run: "npx playwright install"
       shell: bash
     - run: "node ${GITHUB_ACTION_PATH}/dist/index.js"
